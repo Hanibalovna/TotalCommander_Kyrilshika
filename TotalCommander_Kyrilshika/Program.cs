@@ -13,42 +13,17 @@ namespace TotalCommander_Kyrilshika
         static void Main(string[] args)
         {
             Console.CursorVisible = false;
-
-            var view = new ListView(10, 2, height: 20);
-            view.ColumnsWidth = new List<int> { 50, 10, 10 };
-
-            view.Items = GetItems("C:\\");
-            view.Selected += View_Selected;
+            var left = new DirectoryListView(10, 2, 20, Console.WindowWidth / 2);
+            var right = new DirectoryListView(40, 2,20, Console.WindowWidth / 2);
 
             while (true)
             {
                 var key = Console.ReadKey();
-                view.Update(key);
-                view.Render();
-            }
-        }
+                left.Update(key);
+                left.Render();
 
-        private static List<ListViewItem> GetItems(string path)
-        {
-            return new DirectoryInfo(path).GetFileSystemInfos()
-                .Select(f => new ListViewItem(
-                    f,
-                    f.Name,
-                    f is DirectoryInfo dir ? "<dir>" : f.Extension,
-                    f is FileInfo file ? file.Length.ToString() : ""
-                    )).ToList();
-        }
-
-        private static void View_Selected(object sender, EventArgs e)
-        {
-            var view = (ListView)sender;
-            var info = view.SelectedItem.State;
-            if(info is FileInfo file)
-                Process.Start(file.FullName);
-            else if (info is DirectoryInfo dir)
-            {
-                view.Clean();
-                view.Items = GetItems(dir.FullName);
+                right.Update(key);
+                right.Render();
             }
         }
     }

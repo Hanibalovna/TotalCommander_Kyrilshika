@@ -1,4 +1,4 @@
-﻿ using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,17 +21,17 @@ namespace TotalCommander_Kyrilshika
             this.y = y;
             this.height = height;
         }
-         public List<int> ColumnsWidth { get; set; }
+        public List<int> ColumnsWidth { get; set; }
         public List<ListViewItem> Items { get; set; }
+
+        public object UserState { get; set; }
 
         public void Clean()
         {
             selectedIndex = prevSelectedIndex = 0;
             wasPainted = false;
-            for (int i = 0; i < Items.Count; i++)
-            {
-                Console.CursorLeft = x;
-                Console.CursorTop = i + y;
+            for (int i = 0; i < Math.Min(height, Items.Count); i++)
+            {                
                 Items[i].Clean(ColumnsWidth, i, x, y);
             }
         }
@@ -54,7 +54,7 @@ namespace TotalCommander_Kyrilshika
                 var item = Items[elementIndex];
                 var savedForeground = Console.ForegroundColor;
                 var savedBackGround = Console.BackgroundColor;
-                if(elementIndex == selectedIndex)
+                if (elementIndex == selectedIndex)
                 {
                     Console.ForegroundColor = ConsoleColor.Black;
                     Console.BackgroundColor = ConsoleColor.White;
@@ -79,7 +79,7 @@ namespace TotalCommander_Kyrilshika
             else if (key.Key == ConsoleKey.UpArrow && selectedIndex - 1 >= 0)
                 selectedIndex--;
 
-            if(selectedIndex >= height + scroll)
+            if (selectedIndex >= height + scroll)
             {
                 scroll++;
                 wasPainted = false;
@@ -91,8 +91,12 @@ namespace TotalCommander_Kyrilshika
             }
             else if (key.Key == ConsoleKey.Enter)
                 Selected(this, EventArgs.Empty);
+           else if( key.Key == ConsoleKey.Backspace)
+                GoBack(this, EventArgs.Empty);
         }
 
         public event EventHandler Selected;
+        public event EventHandler GoBack;
+
     }
 }
