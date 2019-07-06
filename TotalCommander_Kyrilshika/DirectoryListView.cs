@@ -53,20 +53,24 @@ namespace TotalCommander_Kyrilshika
                     )).ToList();
         }
 
-        private static string GetPrettyLength(long length)
+        private static string GetPrettyLength(long length)//1 Кбайт = 1024 байт, 1 Мбайт = 1024 Кбайт, 1 Гбайт = 1024 Мбайт
         {
-            string size = length.ToString();
+            string size = " ";
             int delitel = 1024;
-            if (length >= delitel)
+            if (1 < length/delitel > 1024)
             {
-            length = length / delitel;
-               Console.WriteLine(size + "Kb");
-            return size;
+             size = length.ToString();
+            return Console.WriteLine(size + "Kb");
             }
-            else if (length >= Math.Pow(delitel,2))
-                    {
-                length = length / Math.Pow(delitel, 2);
-                return size;
+            else if (1< length / Math.Pow(delitel, 2) > 1024)
+            {
+                size = length.ToString();
+                return Console.WriteLine(size + "Mb");
+            }
+            else if (1< length / Math.Pow(delitel, 3) > 1024)
+            {
+                size = length.ToString();
+                return Console.WriteLine(size + "Gb");
             }
         }
 
