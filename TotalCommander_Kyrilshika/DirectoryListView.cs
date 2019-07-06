@@ -15,7 +15,6 @@ namespace TotalCommander_Kyrilshika
         public DirectoryListView(int x, int y, int height, int width)
         {
             this.view = new ListView(x, y, height);
-
             view.ColumnsWidth = new List<int> { width / 10 * 8, width / 10, width / 10 };
 
             view.Items = GetItems("C:\\");
@@ -36,13 +35,45 @@ namespace TotalCommander_Kyrilshika
 
         private static List<ListViewItem> GetItems(string path)
         {
+            if (path == null)
+            {
+                var list = new List<ListViewItem>();
+                foreach (var item in AllDrives())
+                {
+                    list.Add(new ListViewItem(item.RootDirectory, item.Name, "<disc>", ""));
+                }
+                return list;
+            }
             return new DirectoryInfo(path).GetFileSystemInfos()
                 .Select(f => new ListViewItem(
                     f,
                     f.Name,
                     f is DirectoryInfo dir ? "<dir>" : f.Extension,
-                    f is FileInfo file ? file.Length.ToString() : ""
+                    f is FileInfo file ? GetPrettyLength(file.Length) : ""
                     )).ToList();
+        }
+
+        private static string GetPrettyLength(long length)
+        {
+            string size = length.ToString();
+            int delitel = 1024;
+            if (length >= delitel)
+            {
+            length = length / delitel;
+               Console.WriteLine(size + "Kb");
+            return size;
+            }
+            else if (length >= Math.Pow(delitel,2))
+                    {
+                length = length / Math.Pow(delitel, 2);
+                return size;
+            }
+        }
+
+        private static DriveInfo[] AllDrives()
+        {
+            DriveInfo[] drives = DriveInfo.GetDrives();
+            return drives;
         }
 
         private static void View_Selected(object sender, EventArgs e)
@@ -59,16 +90,30 @@ namespace TotalCommander_Kyrilshika
             var view = (ListView)sender;
             var current = (DirectoryInfo)view.UserState;
             var dir = current.Parent;
+            view.Clean();
             if (dir == null)
-                view.Items = GetItems(current.FullName);
+                view.Items = GetItems(null);
             else
-                Navigation(dir, view);
+            {
+                view.Items = GetItems(dir.FullName);
+                view.UserState = dir;
+            }
+            // view.Items = GetItems(dir == null ? null : dir.FullName);
         }
         private static void Navigation(DirectoryInfo dir, ListView view)
         {
-            view.Clean();
-            view.Items = GetItems(dir.FullName);
-            view.UserState = dir;
+            try
+            {
+                var items = GetItems(dir.FullName);
+
+                view.Clean();
+                view.Items = items;
+                view.UserState = dir;
+            }
+            catch
+            {
+                Console.WriteLine("PALUNDRA!");
+            }
         }
     }
 }

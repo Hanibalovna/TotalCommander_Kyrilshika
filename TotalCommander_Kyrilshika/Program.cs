@@ -13,18 +13,29 @@ namespace TotalCommander_Kyrilshika
         static void Main(string[] args)
         {
             Console.CursorVisible = false;
-            var left = new DirectoryListView(10, 2, 20, Console.WindowWidth / 2);
-            var right = new DirectoryListView(40, 2,20, Console.WindowWidth / 2);
+            var left = new DirectoryListView(0, 2, 20, Console.WindowWidth / 2 );
+            var right = new DirectoryListView(Console.WindowWidth / 2, 2, 20, Console.WindowWidth / 2 );
+            var active = left;
+
+            Console.WindowWidth++;
 
             while (true)
             {
                 var key = Console.ReadKey();
-                left.Update(key);
-                left.Render();
+                if (key.Key == ConsoleKey.LeftArrow)
+                {
+                    active = left;
+                }
+                if (key.Key == ConsoleKey.RightArrow)
+                {
+                    active = right;
+                }
 
-                right.Update(key);
+                active.Update(key);
+                left.Render();
                 right.Render();
             }
+            
         }
     }
 }

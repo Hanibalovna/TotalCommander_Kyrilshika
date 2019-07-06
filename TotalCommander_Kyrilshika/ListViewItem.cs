@@ -39,7 +39,7 @@ namespace TotalCommander_Kyrilshika
             if (v1.Length < maxLength)
                 return v1.PadRight(maxLength, ' ');
             else
-                return v1.Substring(0, maxLength - 5) + "[    ]";
+                return v1.Substring(0, maxLength - 5) + "[  ]";
         }
     }
 }
