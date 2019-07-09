@@ -15,7 +15,7 @@ namespace TotalCommander_Kyrilshika
         public DirectoryListView(int x, int y, int height, int width)
         {
             this.view = new ListView(x, y, height);
-            view.ColumnsWidth = new List<int> { width / 10 * 8, width / 10, width / 10 };
+            view.ColumnsWidth = new List<int> { width / 10 * 7, width / 10, width / 10 * 2 };
 
             view.Items = GetItems("C:\\");
             view.UserState = new DirectoryInfo("C:\\");
@@ -55,23 +55,29 @@ namespace TotalCommander_Kyrilshika
 
         private static string GetPrettyLength(long length)//1 Кбайт = 1024 байт, 1 Мбайт = 1024 Кбайт, 1 Гбайт = 1024 Мбайт
         {
+
             string size = " ";
             int delitel = 1024;
-            if (1 < length/delitel > 1024)
+            if (length > delitel && length < Math.Pow(delitel, 2))
             {
-             size = length.ToString();
-            return Console.WriteLine(size + "Kb");
-            }
-            else if (1< length / Math.Pow(delitel, 2) > 1024)
-            {
+                length /= delitel;
                 size = length.ToString();
-                return Console.WriteLine(size + "Mb");
+                return size + "Kb";
             }
-            else if (1< length / Math.Pow(delitel, 3) > 1024)
+            else if (length > Math.Pow(delitel, 2) && length < Math.Pow(delitel, 3))
             {
+                length = length / (long)Math.Pow(delitel, 2);
                 size = length.ToString();
-                return Console.WriteLine(size + "Gb");
+                return size + "Mb";
             }
+            else if (length > Math.Pow(delitel, 3) && length < Math.Pow(delitel, 4))
+            {
+                length = length / (long)Math.Pow(delitel, 3);
+                size = length.ToString();
+                return size + "Gb";
+            }
+            else
+                return size;
         }
 
         private static DriveInfo[] AllDrives()
