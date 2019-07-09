@@ -53,7 +53,7 @@ namespace TotalCommander_Kyrilshika
                     )).ToList();
         }
 
-        private static string GetPrettyLength(long length)//1 Кбайт = 1024 байт, 1 Мбайт = 1024 Кбайт, 1 Гбайт = 1024 Мбайт
+        private static string GetPrettyLength(long length)
         {
 
             string size = " ";
@@ -75,6 +75,12 @@ namespace TotalCommander_Kyrilshika
                 length = length / (long)Math.Pow(delitel, 3);
                 size = length.ToString();
                 return size + "Gb";
+            }
+            else if (length > Math.Pow(delitel, 4) && length < Math.Pow(delitel, 5))
+            {
+                length = length / (long)Math.Pow(delitel, 4);
+                size = length.ToString();
+                return size + "Tb";
             }
             else
                 return size;
@@ -108,6 +114,7 @@ namespace TotalCommander_Kyrilshika
                 view.Items = GetItems(dir.FullName);
                 view.UserState = dir;
             }
+            
             // view.Items = GetItems(dir == null ? null : dir.FullName);
         }
         private static void Navigation(DirectoryInfo dir, ListView view)
@@ -117,12 +124,15 @@ namespace TotalCommander_Kyrilshika
                 var items = GetItems(dir.FullName);
 
                 view.Clean();
+                Console.SetCursorPosition(0, 0);
+                Console.Write(dir.FullName);             
                 view.Items = items;
                 view.UserState = dir;
+                
             }
             catch
             {
-                Console.WriteLine("PALUNDRA!");
+                Console.Write("PALUNDRA!");
             }
         }
     }

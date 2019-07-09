@@ -18,9 +18,13 @@ namespace TotalCommander_Kyrilshika
             var active = left;
 
             Console.WindowWidth++;
-
+            Buttoms buttoms = new Buttoms();
+            buttoms.ButtomsNames();
             while (true)
             {
+                left.Render();
+                right.Render();
+
                 var key = Console.ReadKey();
                 if (key.Key == ConsoleKey.LeftArrow)
                 {
@@ -30,12 +34,11 @@ namespace TotalCommander_Kyrilshika
                 {
                     active = right;
                 }
-
+                
                 active.Update(key);
-                left.Render();
-                right.Render();
+                buttoms.Update(key, active, left, right);
             }
-            
         }
+      
     }
 }

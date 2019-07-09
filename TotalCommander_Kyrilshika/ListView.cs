@@ -21,8 +21,18 @@ namespace TotalCommander_Kyrilshika
             this.y = y;
             this.height = height;
         }
+
+        public ListView()
+        {
+        }
+
         public List<int> ColumnsWidth { get; set; }
-        public List<ListViewItem> Items { get; set; }
+        private List<ListViewItem> items;
+        public List<ListViewItem> Items {
+            get{return items;}
+            set{scroll = 0;
+                items = value; }
+            }
 
         public object UserState { get; set; }
 
@@ -50,8 +60,8 @@ namespace TotalCommander_Kyrilshika
                     if (elementIndex != selectedIndex && elementIndex != prevSelectedIndex)
                         continue;
                 }
-
-                var item = Items[elementIndex];
+              
+                 var item = Items[elementIndex];
                 var savedForeground = Console.ForegroundColor;
                 var savedBackGround = Console.BackgroundColor;
                 if (elementIndex == selectedIndex)
@@ -90,13 +100,20 @@ namespace TotalCommander_Kyrilshika
                 wasPainted = false;
             }
             else if (key.Key == ConsoleKey.Enter)
+            {
                 Selected(this, EventArgs.Empty);
-           else if( key.Key == ConsoleKey.Backspace)
+          
+            }
+           else if ( key.Key == ConsoleKey.Backspace)
+            {
                 GoBack(this, EventArgs.Empty);
+              
+            }
         }
 
         public event EventHandler Selected;
         public event EventHandler GoBack;
+
 
     }
 }
