@@ -33,7 +33,7 @@ namespace TotalCommander_Kyrilshika
             view.Render();
         }
 
-        private static List<ListViewItem> GetItems(string path)
+        private List<ListViewItem> GetItems(string path)
         {
             if (path == null)
             {
@@ -53,7 +53,7 @@ namespace TotalCommander_Kyrilshika
                     )).ToList();
         }
 
-        private static string GetPrettyLength(long length)
+        public string GetPrettyLength(long length)
         {
 
             string size = " ";
@@ -86,22 +86,22 @@ namespace TotalCommander_Kyrilshika
                 return size;
         }
 
-        private static DriveInfo[] AllDrives()
+        private DriveInfo[] AllDrives()
         {
             DriveInfo[] drives = DriveInfo.GetDrives();
             return drives;
         }
 
-        private static void View_Selected(object sender, EventArgs e)
+        private void View_Selected(object sender, EventArgs e)
         {
             var view = (ListView)sender;
             var info = view.SelectedItem.State;
             if (info is FileInfo file)
                 Process.Start(file.FullName);
             else if (info is DirectoryInfo dir)
-                Navigation(dir, view);
+                Navigation(dir);
         }
-        private static void View_GoBack(object sender, EventArgs e)
+        private void View_GoBack(object sender, EventArgs e)
         {
             var view = (ListView)sender;
             var current = (DirectoryInfo)view.UserState;
@@ -113,11 +113,11 @@ namespace TotalCommander_Kyrilshika
             {
                 view.Items = GetItems(dir.FullName);
                 view.UserState = dir;
-            }
-            
+            }            
             // view.Items = GetItems(dir == null ? null : dir.FullName);
         }
-        private static void Navigation(DirectoryInfo dir, ListView view)
+
+        public void Navigation(DirectoryInfo dir)
         {
             try
             {
@@ -127,8 +127,7 @@ namespace TotalCommander_Kyrilshika
                 Console.SetCursorPosition(0, 0);
                 Console.Write(dir.FullName);             
                 view.Items = items;
-                view.UserState = dir;
-                
+                view.UserState = dir;                
             }
             catch
             {

@@ -114,6 +114,5 @@ namespace TotalCommander_Kyrilshika
         public event EventHandler Selected;
         public event EventHandler GoBack;
 
-
     }
 }
