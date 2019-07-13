@@ -14,7 +14,7 @@ namespace TotalCommander_Kyrilshika
         public void ButtomsNames()
         {
             Console.SetCursorPosition(5, 22);
-            string buttoms = "F1-Copy | F2-Cut | F3-Paste | F4-Root | F5-List of discks | F6-Properties | F7-Rename | F8-Find | F9-New folder";
+            string buttoms = "F1-Copy | F2-Cut | F3-Paste | F4-Root | F5-List of discks | F6-Properties | F7-Rename | F9-New folder";
             Console.WriteLine(buttoms);
         }
         public void Update(ConsoleKeyInfo keyInfo, DirectoryListView active, DirectoryListView left, DirectoryListView right)
@@ -72,7 +72,6 @@ namespace TotalCommander_Kyrilshika
                 Console.WriteLine("Last Read Time: " + dir.LastAccessTime);
                 Console.WriteLine("Last Write Time: " + dir.LastWriteTime);
             }
-
         }
 
         private FileSystemInfo buffer;
@@ -82,17 +81,22 @@ namespace TotalCommander_Kyrilshika
             buffer = (FileSystemInfo)active.view.SelectedItem.State;
         }
 
-        public void F3_Paste(DirectoryListView active)
-        {
-            var from = (DirectoryInfo)active.view.UserState;
-            var to = buffer;
-            foreach (var file in from.GetFiles())
-                File.Copy(file.FullName, Path.Combine(to.FullName, file.Name));
-            foreach (var papka in from.GetDirectories())
-                Directory.CreateDirectory()
-                    .Copy(papka, Path.Combine(to.FullName, papka.Name));
+        //public void F3_Paste(DirectoryListView active)
+        //{
+        //    var from = (DirectoryInfo)active.view.UserState;
+        //    var to = buffer;
+        //    foreach (var file in from.GetFiles())
+        //        File.Copy(file.FullName, Path.Combine(to.FullName, file.Name));
+        //    foreach (var papka in from.GetDirectories())
+        //       Directory.CreateDirectory(papka.FullName).Copy(papka, Path.Combine(to.FullName, papka.Name));
+        //}
 
-            
+        public void F9_NewFolder(DirectoryListView active)
+        {
+            Console.SetCursorPosition(5, 22);
+            Console.WriteLine("Enter name of new folder");
+            string folderName = Console.ReadLine();
+
         }
     }
 }
