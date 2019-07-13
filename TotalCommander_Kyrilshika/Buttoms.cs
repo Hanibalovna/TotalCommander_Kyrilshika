@@ -96,7 +96,6 @@ namespace TotalCommander_Kyrilshika
             Console.SetCursorPosition(5, 22);
             Console.WriteLine("Enter name of new folder");
             string folderName = Console.ReadLine();
-
         }
     }
 }
