@@ -24,7 +24,6 @@ namespace TotalCommander_Kyrilshika
             {
                 left.Render();
                 right.Render();
-
                 var key = Console.ReadKey();
                 if (key.Key == ConsoleKey.LeftArrow)
                 {
@@ -34,7 +33,6 @@ namespace TotalCommander_Kyrilshika
                 {
                     active = right;
                 }
-                
                 active.Update(key);
                 buttoms.Update(key, active, left, right);
             }

@@ -22,17 +22,14 @@ namespace TotalCommander_Kyrilshika
             view.Selected += View_Selected;
             view.GoBack += View_GoBack;
         }
-
         public void Update(ConsoleKeyInfo keyInfo)
         {
             view.Update(keyInfo);
         }
-
         public void Render()
         {
             view.Render();
         }
-
         private List<ListViewItem> GetItems(string path)
         {
             if (path == null)
@@ -52,10 +49,8 @@ namespace TotalCommander_Kyrilshika
                     f is FileInfo file ? GetPrettyLength(file.Length) : ""
                     )).ToList();
         }
-
         public string GetPrettyLength(long length)
         {
-
             string size = " ";
             int delitel = 1024;
             if (length > delitel && length < Math.Pow(delitel, 2))
@@ -85,13 +80,11 @@ namespace TotalCommander_Kyrilshika
             else
                 return size;
         }
-
         private DriveInfo[] AllDrives()
         {
             DriveInfo[] drives = DriveInfo.GetDrives();
             return drives;
         }
-
         private void View_Selected(object sender, EventArgs e)
         {
             var view = (ListView)sender;
@@ -116,7 +109,6 @@ namespace TotalCommander_Kyrilshika
             }            
             // view.Items = GetItems(dir == null ? null : dir.FullName);
         }
-
         public void Navigation(DirectoryInfo dir)
         {
             try
@@ -125,9 +117,9 @@ namespace TotalCommander_Kyrilshika
 
                 view.Clean();
                 Console.SetCursorPosition(0, 0);
-                Console.Write(dir.FullName);             
+                Console.Write(dir.FullName);
                 view.Items = items;
-                view.UserState = dir;                
+                view.UserState = dir;
             }
             catch
             {

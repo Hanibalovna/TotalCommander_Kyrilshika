@@ -21,11 +21,9 @@ namespace TotalCommander_Kyrilshika
             this.y = y;
             this.height = height;
         }
-
         public ListView()
         {
         }
-
         public List<int> ColumnsWidth { get; set; }
         private List<ListViewItem> items;
         public List<ListViewItem> Items {
@@ -33,7 +31,6 @@ namespace TotalCommander_Kyrilshika
             set{scroll = 0;
                 items = value; }
             }
-
         public object UserState { get; set; }
 
         public void Clean()
@@ -41,7 +38,7 @@ namespace TotalCommander_Kyrilshika
             selectedIndex = prevSelectedIndex = 0;
             wasPainted = false;
             for (int i = 0; i < Math.Min(height, Items.Count); i++)
-            {                
+            {
                 Items[i].Clean(ColumnsWidth, i, x, y);
             }
         }
@@ -79,7 +76,6 @@ namespace TotalCommander_Kyrilshika
             }
             wasPainted = true;
         }
-
         public void Update(ConsoleKeyInfo key)
         {
             prevSelectedIndex = selectedIndex;
@@ -110,7 +106,6 @@ namespace TotalCommander_Kyrilshika
               
             }
         }
-
         public event EventHandler Selected;
         public event EventHandler GoBack;
 
