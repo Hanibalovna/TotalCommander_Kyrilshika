@@ -88,12 +88,12 @@ namespace TotalCommander_Kyrilshika
         {
             var f = (DirectoryInfo)active.view.UserState;
             string from = f.FullName.ToString();
-            string to = buffer.ToString();
+            string to = buffer.FullName;
             F3_Paste_Recursion(from, to);
         }
         private void F3_Paste_Recursion(string from, string to)
         {
-            Directory.CreateDirectory(to);
+            Directory.CreateDirectory(to + "\\" + Path.GetFileName(from));
             foreach (string s1 in Directory.GetFiles(from))
             {
                 string s2 = to + "\\" + Path.GetFileName(s1);
