@@ -122,10 +122,14 @@ namespace TotalCommander_Kyrilshika
                 dirInfo.Create();
                 dirInfo.CreateSubdirectory(subPath);
             }
-            else 
+            else if (dirInfo.Exists)
             {
-                dirInfo.Create();
-                dirInfo.CreateSubdirectory(subPath+number);
+                do
+                {
+                    dirInfo.Create();
+                    dirInfo.CreateSubdirectory(subPath + number);
+                }
+                while (!dirInfo.Exists);
             }
         }
         private void F7_Rename(DirectoryListView active)
