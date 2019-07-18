@@ -38,6 +38,10 @@ namespace TotalCommander_Kyrilshika
         {
             view.Render();
         }
+        public void F2_Cut(DirectoryListView active)
+        {
+
+        }
         public DriveInfo[] F5_DiscsView(DirectoryListView active)
         {
             var view = active;
@@ -78,7 +82,7 @@ namespace TotalCommander_Kyrilshika
                 Console.WriteLine("Last Write Time: " + dir.LastWriteTime);
             }
         }
-        private FileSystemInfo buffer; 
+        private FileSystemInfo buffer;
 
         public void F1_Copy(DirectoryListView active)
         {
@@ -108,29 +112,21 @@ namespace TotalCommander_Kyrilshika
         {
             var p = (DirectoryInfo)active.view.UserState;
             string path = p.FullName.ToString();
-            
+
             string subPath = "Test New Folder";
 
             Create(path, subPath);
         }
         public void Create(string path, string subPath)
         {
-            int number = 1;
-            DirectoryInfo dirInfo = new DirectoryInfo(path);
-            if (!dirInfo.Exists)
+            int number = 0;
+            DirectoryInfo dir;
+            do
             {
-                dirInfo.Create();
-                dirInfo.CreateSubdirectory(subPath);
-            }
-            else if (dirInfo.Exists)
-            {
-                do
-                {
-                    dirInfo.Create();
-                    dirInfo.CreateSubdirectory(subPath + number);
-                }
-                while (!dirInfo.Exists);
-            }
+                dir = new DirectoryInfo(path + "//" + subPath + number);
+                number++;
+            } while (dir.Exists);
+            dir.Create();
         }
         private void F7_Rename(DirectoryListView active)
         {
