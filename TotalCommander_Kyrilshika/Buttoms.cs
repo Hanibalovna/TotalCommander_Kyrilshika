@@ -14,7 +14,7 @@ namespace TotalCommander_Kyrilshika
         public void ButtomsNames()
         {
             Console.SetCursorPosition(5, 22);
-            string buttoms = "F1-Copy | F3-Paste | F4-Root | F5-List of discks | F6-Properties | F7-Rename | F9-New folder";//F7
+            string buttoms = "F1-Copy | F3-Paste | F4-Root | F5-List of discks | F6-Properties | F7-Rename | F9-New folder";
             Console.WriteLine(buttoms);
         }
         public void Update(ConsoleKeyInfo keyInfo, DirectoryListView active, DirectoryListView left, DirectoryListView right)

@@ -44,7 +44,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Buttoms.cs" />
-    <Compile Include="ConsoleGraphics.cs" />
     <Compile Include="DirectoryListView.cs" />
     <Compile Include="ListView.cs" />
     <Compile Include="ListViewItem.cs" />

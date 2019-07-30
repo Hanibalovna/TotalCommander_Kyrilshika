@@ -16,7 +16,6 @@ namespace TotalCommander_Kyrilshika
             State = state;
             this.columns = columns;
         }
-
         internal void Render(List<int> columnsWidth, int elementIndex, int listViewX, int listVievY)
         {
             for (int i = 0; i < columns.Length; i++)
@@ -26,14 +25,12 @@ namespace TotalCommander_Kyrilshika
                 Console.Write(GetStringWithLength(columns[i], columnsWidth[i]));
             }
         }
-
         internal void Clean (List<int> columnsWidth, int i, int x, int y)
         {
             Console.CursorTop = i + y;
             Console.CursorLeft = x;
             Console.Write(new string(' ', columnsWidth.Sum()));
         }
-
         private string GetStringWithLength(string v1, int maxLength)
         {
             if (v1.Length < maxLength)

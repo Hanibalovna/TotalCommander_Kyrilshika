@@ -106,8 +106,7 @@ namespace TotalCommander_Kyrilshika
             {
                 view.Items = GetItems(dir.FullName);
                 view.UserState = dir;
-            }            
-            // view.Items = GetItems(dir == null ? null : dir.FullName);
+            }
         }
         public void Navigation(DirectoryInfo dir)
         {

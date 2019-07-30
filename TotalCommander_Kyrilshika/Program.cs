@@ -13,8 +13,8 @@ namespace TotalCommander_Kyrilshika
         static void Main(string[] args)
         {
             Console.CursorVisible = false;
-            var left = new DirectoryListView(0, 2, 20, Console.WindowWidth / 2 );
-            var right = new DirectoryListView(Console.WindowWidth / 2, 2, 20, Console.WindowWidth / 2 );
+            var left = new DirectoryListView(0, 2, 20, Console.WindowWidth / 2);
+            var right = new DirectoryListView(Console.WindowWidth / 2, 2, 20, Console.WindowWidth / 2);
             var active = left;
 
             Console.WindowWidth++;
@@ -37,6 +37,6 @@ namespace TotalCommander_Kyrilshika
                 buttoms.Update(key, active, left, right);
             }
         }
-      
+
     }
 }
