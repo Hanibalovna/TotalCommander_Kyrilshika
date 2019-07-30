@@ -14,7 +14,7 @@ namespace TotalCommander_Kyrilshika
         public void ButtomsNames()
         {
             Console.SetCursorPosition(5, 22);
-            string buttoms = "F1-Copy | F2-Cut | F3-Paste | F4-Root | F5-List of discks | F6-Properties | F7-Rename | F9-New folder";
+            string buttoms = "F1-Copy | F2-Cut | F3-Paste | F4-Root | F5-List of discks | F6-Properties | F7-Rename | F9-New folder";//F2,F7
             Console.WriteLine(buttoms);
         }
         public void Update(ConsoleKeyInfo keyInfo, DirectoryListView active, DirectoryListView left, DirectoryListView right)
@@ -37,10 +37,6 @@ namespace TotalCommander_Kyrilshika
         public void Render()
         {
             view.Render();
-        }
-        public void F2_Cut(DirectoryListView active)
-        {
-
         }
         public DriveInfo[] F5_DiscsView(DirectoryListView active)
         {
@@ -91,8 +87,8 @@ namespace TotalCommander_Kyrilshika
         public void F3_Paste(DirectoryListView active)
         {
             var f = (DirectoryInfo)active.view.UserState;
-            string from = f.FullName.ToString();
-            string to = buffer.FullName;
+            string from = buffer.FullName;
+            string to = f.FullName.ToString();
             F3_Paste_Recursion(from, to);
         }
         private void F3_Paste_Recursion(string from, string to)
@@ -101,7 +97,14 @@ namespace TotalCommander_Kyrilshika
             foreach (string s1 in Directory.GetFiles(from))
             {
                 string s2 = to + "\\" + Path.GetFileName(s1);
-                File.Copy(s1, s2);
+                try
+                {
+                    File.Copy(s1, s2);
+                }
+                catch
+                {
+                    Console.WriteLine("Name is already exist");
+                }
             }
             foreach (string s in Directory.GetDirectories(from))
             {
@@ -130,18 +133,37 @@ namespace TotalCommander_Kyrilshika
         }
         private void F7_Rename(DirectoryListView active)
         {
-            //Папка, которую переименовываем
-            var p = (DirectoryInfo)active.view.UserState;
-            string currentFolderName = p.FullName.ToString();
-            //Новое имя папки
-            Console.SetCursorPosition(5, 35);
-            Console.WriteLine("New Folder Name:");
-            string newFolderName = Console.ReadLine();
-            DirectoryInfo drInfo = new DirectoryInfo(currentFolderName);
-            if (drInfo.Exists)
+            var view = active;
+            var current = view.view.SelectedItem.State;
+
+            if (current is FileInfo file)
             {
-                drInfo.MoveTo(newFolderName);
+                string currentFileName = file.FullName.ToString();
+                Console.SetCursorPosition(5, 35);
+                Console.WriteLine("New File Name:");
+                string newFileName = Console.ReadLine();
+                FileInfo fileInfo = new FileInfo(currentFileName);
+                if (file.Exists)
+                {
+                    fileInfo.MoveTo(newFileName);
+                }
             }
+            else if (current is DirectoryInfo dir)
+            {
+                string currentFolderName = dir.FullName.ToString();
+                Console.SetCursorPosition(5, 35);
+                Console.WriteLine("New Folder Name:");
+                string newFolderName = Console.ReadLine();
+                DirectoryInfo drInfo = new DirectoryInfo(currentFolderName);
+                if (drInfo.Exists)
+                {
+                    drInfo.MoveTo(newFolderName);
+                }
+            }
+        }
+        public void F2_Cut(DirectoryListView active)
+        {
+
         }
     }
 }
