@@ -46,14 +46,14 @@ namespace TotalCommander_Kyrilshika
             active.view.Items = drives.Select(f => new ListViewItem(f.RootDirectory, f.Name)).ToList();
             return drives;
         }
-        public void F4_Root(DirectoryListView active)
+        private void F4_Root(DirectoryListView active)
         {
             var view = active;
             var current = (DirectoryInfo)view.view.UserState;
             var root = current.Root;
             active.Navigation(root);
         }
-        public void F6_Properties(DirectoryListView active)
+        private void F6_Properties(DirectoryListView active)
         {
             var view = active;
             var current = view.view.SelectedItem.State;
@@ -80,11 +80,11 @@ namespace TotalCommander_Kyrilshika
         }
         private FileSystemInfo buffer;
 
-        public void F1_Copy(DirectoryListView active)
+        private void F1_Copy(DirectoryListView active)
         {
             buffer = (FileSystemInfo)active.view.SelectedItem.State;
         }
-        public void F3_Paste(DirectoryListView active)
+        private void F3_Paste(DirectoryListView active)
         {
             var f = (DirectoryInfo)active.view.UserState;
             string from = buffer.FullName;
@@ -112,7 +112,7 @@ namespace TotalCommander_Kyrilshika
                 F3_Paste_Recursion(s, to + "\\" + Path.GetFileName(s));
             }
         }
-        public void F9_NewFolder(DirectoryListView active)
+        private void F9_NewFolder(DirectoryListView active)
         {
             var p = (DirectoryInfo)active.view.UserState;
             string path = p.FullName.ToString();
@@ -121,7 +121,7 @@ namespace TotalCommander_Kyrilshika
 
             Create(path, subPath);
         }
-        public void Create(string path, string subPath)
+        private void Create(string path, string subPath)
         {
             int number = 0;
             DirectoryInfo dir;
@@ -140,25 +140,41 @@ namespace TotalCommander_Kyrilshika
             if (current is FileInfo file)
             {
                 string currentFileName = file.FullName.ToString();
+                //string newFileName = "K:\\ITcloud_курсы\\Новая папка\\1111\\150\\122.accdb";
                 Console.SetCursorPosition(5, 35);
-                Console.WriteLine("New File Name:");
+                Console.WriteLine("Enter New File Name:");
                 string newFileName = Console.ReadLine();
-                FileInfo fileInfo = new FileInfo(currentFileName);
-                if (file.Exists)
+                try
                 {
-                    fileInfo.MoveTo(newFileName);
+                    FileInfo fileInfo = new FileInfo(currentFileName);
+                    if (file.Exists)
+                    {
+                        fileInfo.MoveTo(newFileName);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
                 }
             }
             else if (current is DirectoryInfo dir)
             {
                 string currentFolderName = dir.FullName.ToString();
-                Console.SetCursorPosition(5, 35);
-                Console.WriteLine("New Folder Name:");
-                string newFolderName = Console.ReadLine();
-                DirectoryInfo drInfo = new DirectoryInfo(currentFolderName);
-                if (drInfo.Exists)
+                string newFolderName = "K:\\ITcloud_курсы\\Новая папка\\1111\\150";
+                //Console.SetCursorPosition(5, 35);
+                //Console.WriteLine("Enter New Folder Name:");
+                //string newFolderName = Console.ReadLine();
+                try
                 {
-                    drInfo.MoveTo(newFolderName);
+                    DirectoryInfo drInfo = new DirectoryInfo(currentFolderName);
+                    if (drInfo.Exists)
+                    {
+                        drInfo.MoveTo(newFolderName);
+                    }
+                }
+                catch
+                {
+                    Console.WriteLine("Exeption");
                 }
             }
         }
