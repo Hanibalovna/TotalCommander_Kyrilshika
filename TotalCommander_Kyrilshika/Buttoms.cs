@@ -14,7 +14,7 @@ namespace TotalCommander_Kyrilshika
         public void ButtomsNames()
         {
             Console.SetCursorPosition(5, 22);
-            string buttoms = "F1-Copy | F2-Cut | F3-Paste | F4-Root | F5-List of discks | F6-Properties | F7-Rename | F9-New folder";//F2,F7
+            string buttoms = "F1-Copy | F3-Paste | F4-Root | F5-List of discks | F6-Properties | F7-Rename | F9-New folder";//F7
             Console.WriteLine(buttoms);
         }
         public void Update(ConsoleKeyInfo keyInfo, DirectoryListView active, DirectoryListView left, DirectoryListView right)
@@ -103,6 +103,7 @@ namespace TotalCommander_Kyrilshika
                 }
                 catch
                 {
+                    Console.SetCursorPosition(0, 25);
                     Console.WriteLine("Name is already exist");
                 }
             }
@@ -143,7 +144,7 @@ namespace TotalCommander_Kyrilshika
                 Console.WriteLine("New File Name:");
                 string newFileName = Console.ReadLine();
                 FileInfo fileInfo = new FileInfo(currentFileName);
-                 if (file.Exists)
+                if (file.Exists)
                 {
                     fileInfo.MoveTo(newFileName);
                 }
@@ -160,10 +161,6 @@ namespace TotalCommander_Kyrilshika
                     drInfo.MoveTo(newFolderName);
                 }
             }
-        }
-        public void F2_Cut(DirectoryListView active)
-        {
-
         }
     }
 }
