@@ -143,7 +143,7 @@ namespace TotalCommander_Kyrilshika
                 Console.WriteLine("New File Name:");
                 string newFileName = Console.ReadLine();
                 FileInfo fileInfo = new FileInfo(currentFileName);
-                if (file.Exists)
+                 if (file.Exists)
                 {
                     fileInfo.MoveTo(newFileName);
                 }
