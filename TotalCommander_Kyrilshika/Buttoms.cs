@@ -147,9 +147,11 @@ namespace TotalCommander_Kyrilshika
                 try
                 {
                     FileInfo fileInfo = new FileInfo(currentFileName);
+                    var parent = file.DirectoryName;
+                    var extention = fileInfo.Extension;
                     if (file.Exists)
                     {
-                        fileInfo.MoveTo(newFileName);
+                        fileInfo.MoveTo(parent + "\\" + newFileName + extention);
                     }
                 }
                 catch (Exception ex)
@@ -160,16 +162,16 @@ namespace TotalCommander_Kyrilshika
             else if (current is DirectoryInfo dir)
             {
                 string currentFolderName = dir.FullName.ToString();
-                string newFolderName = "K:\\ITcloud_курсы\\Новая папка\\1111\\150";
-                //Console.SetCursorPosition(5, 35);
-                //Console.WriteLine("Enter New Folder Name:");
-                //string newFolderName = Console.ReadLine();
+                //string newFolderName = "K:\\ITcloud_курсы\\Новая папка\\1111\\150";
+                Console.SetCursorPosition(5, 35);
+                Console.WriteLine("Enter New Folder Name:");
+                string newFolderName = Console.ReadLine();
                 try
                 {
                     DirectoryInfo drInfo = new DirectoryInfo(currentFolderName);
                     if (drInfo.Exists)
                     {
-                        drInfo.MoveTo(newFolderName);
+                        drInfo.MoveTo(dir.Parent + "\\" + newFolderName);
                     }
                 }
                 catch
